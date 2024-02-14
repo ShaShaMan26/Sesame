@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Window extends JFrame {
-    private int scale = 1;
+    public static double scale = 1;
     public static Canvas canvas = new Canvas();
     public static InputManager inputManager = new InputManager();
 
@@ -34,20 +34,23 @@ public class Window extends JFrame {
     }
 
     public void updateScale() {
-        Dimension updatedDim = new Dimension(Canvas.defDim.width*scale, Canvas.defDim.height*scale);
+        Dimension updatedDim = new Dimension((int) (Canvas.defDim.width*scale), (int) (Canvas.defDim.height*scale));
         canvas.setPreferredSize(updatedDim);
 
         this.pack();
+        canvas.setLayout(null);
         this.setLocationRelativeTo(null);
-
-        // set scale of all objs
     }
 
     public void setScale(int scale) {
-        this.scale = scale;
-    }
+        if (scale > 0) {
+            Window.scale = scale;
+        } else if (scale < 0) {
+            Window.scale = Math.abs((double) 1/scale);
+        } else {
+            // make fullscreen
+        }
 
-    public int getScale() {
-        return scale;
+        updateScale();
     }
 }

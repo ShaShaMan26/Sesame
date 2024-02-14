@@ -1,5 +1,7 @@
 package Mine.Objects;
 
+import Mine.Window;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -59,11 +61,21 @@ public abstract class Obj extends Component {
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(sprite, getX(), getY(), null);
+        double scale = Window.scale;
+
+        g.drawImage(sprite,
+                (int) (getX() * scale),
+                (int) (getY() * scale),
+                (int) (sprite.getWidth() * scale),
+                (int) (sprite.getHeight() * scale),
+                null);
 
         if (hitBoxVisible) {
             g.setColor(Color.GREEN);
-            g.drawRect(hitBox.x + getX(), hitBox.y + getY(), hitBox.width, hitBox.height);
+            g.drawRect((int) ((hitBox.x + getX()) * scale),
+                    (int) ((hitBox.y + getY()) * scale),
+                    (int) (hitBox.width * scale),
+                    (int) (hitBox.height * scale));
         }
     }
 }

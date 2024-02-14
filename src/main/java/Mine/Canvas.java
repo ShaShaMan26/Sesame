@@ -10,6 +10,7 @@ public class Canvas extends JPanel {
     public static Dimension defDim = new Dimension(640, 480);
 
     public Canvas() {
+        this.setLayout(null);
         this.setPreferredSize(defDim);
     }
 
@@ -33,7 +34,7 @@ public class Canvas extends JPanel {
         g.fillRect(0, 0, getWidth(), getHeight());
 
         // make scale <3
-        g.drawImage(bgImg, 0, 0, 640, 480, null);
+        g.drawImage(bgImg, 0, 0, getWidth(), getHeight(), null);
 
         for (Component c : getComponents()) {
             c.paint(g);
