@@ -9,6 +9,7 @@ public abstract class Obj extends Component {
     protected BufferedImage sprite;
     protected Rectangle hitBox = new Rectangle(0, 0, 0, 0);
     protected boolean hitBoxVisible = false;
+    protected float opacity = 1;
 
     protected Obj() {
     }
@@ -39,6 +40,15 @@ public abstract class Obj extends Component {
         this.sprite = sprite;
         hitBox.setSize(sprite.getWidth(), sprite.getHeight());
     }
+    public void setOpacity(float opacity) {
+        if (opacity > 1) {
+            this.opacity = 1;
+        } else if (opacity < 0) {
+            this.opacity = 0;
+        } else {
+            this.opacity = opacity;
+        }
+    }
     public void setHitBox(int xOffset, int yOffset, int width, int height) {
         hitBox = new Rectangle(xOffset, yOffset, width, height);
     }
@@ -52,6 +62,9 @@ public abstract class Obj extends Component {
     public BufferedImage getSprite() {
         return sprite;
     }
+    public float getOpacity() {
+        return opacity;
+    }
     public Rectangle getHitBox() {
         return hitBox;
     }
@@ -63,12 +76,14 @@ public abstract class Obj extends Component {
     public void paint(Graphics g) {
         double scale = Window.scale;
 
+        ((Graphics2D)g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
         g.drawImage(sprite,
                 (int) (getX() * scale),
                 (int) (getY() * scale),
                 (int) (sprite.getWidth() * scale),
                 (int) (sprite.getHeight() * scale),
                 null);
+        ((Graphics2D)g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
         if (hitBoxVisible) {
             g.setColor(Color.GREEN);
