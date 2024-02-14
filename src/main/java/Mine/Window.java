@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Window extends JFrame {
-    public static int scale = 1;
+    public static double scale = 1;
     public static Canvas canvas = new Canvas();
     public static InputManager inputManager = new InputManager();
     private JPanel framePanel = new JPanel();
@@ -78,8 +78,8 @@ public class Window extends JFrame {
             wantsToFullScreen = true;
         }
 
-        Dimension updatedDim = new Dimension((int) (Canvas.defDim.width * getScale()),
-                (int) (Canvas.defDim.height * getScale()));
+        Dimension updatedDim = new Dimension((int) (Canvas.defDim.width * scale),
+                (int) (Canvas.defDim.height * scale));
         canvas.setSize(updatedDim);
 
         this.remove(framePanel);
@@ -96,16 +96,6 @@ public class Window extends JFrame {
         }
     }
 
-    public void setScale(int scale) {
-        Window.scale = scale;
-    }
-
-    public static double getScale() {
-        if (scale < 0) {
-            return 1.0 / Math.abs(scale);
-        }
-        return scale;
-    }
     public boolean isFullScreened() {
         return this.isUndecorated();
     }
