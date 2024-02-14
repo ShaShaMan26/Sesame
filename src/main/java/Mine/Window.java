@@ -4,17 +4,23 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Window extends JFrame {
-    public static double scale = 1;
+    public static int scale = 1;
     public static Canvas canvas = new Canvas();
     public static InputManager inputManager = new InputManager();
+    private JPanel framePanel = new JPanel();
 
     public Window() {
         super();
 
+        framePanel.setPreferredSize(canvas.getSize());
+        this.add(framePanel);
+        this.pack();
+        framePanel.setVisible(false);
+
         this.addKeyListener(inputManager);
         this.add(canvas);
-        this.pack();
 
+        this.getContentPane().setBackground(Color.BLACK);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -33,24 +39,74 @@ public class Window extends JFrame {
         this.setIconImage(imageIcon.getImage());
     }
 
-    public void updateScale() {
-        Dimension updatedDim = new Dimension((int) (Canvas.defDim.width*scale), (int) (Canvas.defDim.height*scale));
-        canvas.setPreferredSize(updatedDim);
-
-        this.pack();
-        canvas.setLayout(null);
+    public void fullScreen() {
+        this.dispose();
+        this.setExtendedState(MAXIMIZED_BOTH);
+        this.setUndecorated(true);
+        this.setVisible(true);
         this.setLocationRelativeTo(null);
+
+        this.remove(framePanel);
+        framePanel.setVisible(true);
+        framePanel.setPreferredSize(this.getSize());
+        this.add(framePanel);
+        this.pack();
+        framePanel.setVisible(false);
+
+        int width = this.getWidth();
+        int height = this.getHeight();
+
+        int xOffset = (width-canvas.getWidth()) / 2;
+        int yOffset = (height-canvas.getHeight()) / 2;
+        canvas.setLocation(xOffset, yOffset);
+    }
+    public void unFullScreen() {
+        this.dispose();
+        this.setExtendedState(NORMAL);
+        this.setUndecorated(false);
+        this.setVisible(true);
+        this.setLocationRelativeTo(null);
+
+        canvas.setLocation(0, 0);
+
+        updateScale();
+    }
+    public void updateScale() {
+        boolean wantsToFullScreen = false;
+        if (isFullScreened()) {
+            unFullScreen();
+            wantsToFullScreen = true;
+        }
+
+        Dimension updatedDim = new Dimension((int) (Canvas.defDim.width * getScale()),
+                (int) (Canvas.defDim.height * getScale()));
+        canvas.setSize(updatedDim);
+
+        this.remove(framePanel);
+        framePanel.setVisible(true);
+        framePanel.setPreferredSize(canvas.getSize());
+        this.add(framePanel);
+        this.pack();
+        framePanel.setVisible(false);
+
+        this.setLocationRelativeTo(null);
+
+        if (wantsToFullScreen) {
+            fullScreen();
+        }
     }
 
     public void setScale(int scale) {
-        if (scale > 0) {
-            Window.scale = scale;
-        } else if (scale < 0) {
-            Window.scale = Math.abs((double) 1/scale);
-        } else {
-            // make fullscreen
-        }
+        Window.scale = scale;
+    }
 
-        updateScale();
+    public static double getScale() {
+        if (scale < 0) {
+            return 1.0 / Math.abs(scale);
+        }
+        return scale;
+    }
+    public boolean isFullScreened() {
+        return this.isUndecorated();
     }
 }

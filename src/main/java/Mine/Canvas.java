@@ -11,7 +11,7 @@ public class Canvas extends JPanel {
 
     public Canvas() {
         this.setLayout(null);
-        this.setPreferredSize(defDim);
+        this.setSize(defDim);
     }
 
     public void setBgColor(Color bgColor) {

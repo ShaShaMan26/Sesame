@@ -12,7 +12,7 @@ public class InputManager implements KeyListener {
         return pressedKeys.contains(key);
     }
 
-    public void invalidateKeys(Integer key) {
+    public void invalidateKey(Integer key) {
         if (!invalidKeys.contains(key)) {
             invalidKeys.add(key);
             pressedKeys.remove(key);

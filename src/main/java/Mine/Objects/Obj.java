@@ -74,7 +74,7 @@ public abstract class Obj extends Component {
 
     @Override
     public void paint(Graphics g) {
-        double scale = Window.scale;
+        double scale = Window.getScale();
 
         ((Graphics2D)g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
         g.drawImage(sprite,
