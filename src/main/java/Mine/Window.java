@@ -1,5 +1,7 @@
 package Mine;
 
+import Mine.Objects.Obj;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -29,14 +31,6 @@ public class Window extends JFrame {
     public Window(String title) {
         this();
         this.setTitle(title);
-    }
-    public Window(ImageIcon imageIcon) {
-        this();
-        this.setIconImage(imageIcon.getImage());
-    }
-    public Window(String title, ImageIcon imageIcon) {
-        this(title);
-        this.setIconImage(imageIcon.getImage());
     }
 
     public void fullScreen() {
@@ -71,6 +65,10 @@ public class Window extends JFrame {
 
         updateScale();
     }
+    public boolean isFullScreened() {
+        return this.isUndecorated();
+    }
+
     public void updateScale() {
         boolean wantsToFullScreen = false;
         if (isFullScreened()) {
@@ -96,7 +94,12 @@ public class Window extends JFrame {
         }
     }
 
-    public boolean isFullScreened() {
-        return this.isUndecorated();
+    public void update() {
+        this.repaint();
+        for (Component c : canvas.getComponents()) {
+            if (c instanceof Obj) {
+                ((Obj) c).update();
+            }
+        }
     }
 }

@@ -7,8 +7,8 @@ import java.awt.image.BufferedImage;
 
 public abstract class Obj extends Component {
     protected BufferedImage sprite;
-    protected Rectangle hitBox = new Rectangle(0, 0, 0, 0);
-    protected boolean hitBoxVisible = false;
+    protected Rectangle collider = new Rectangle();
+    protected boolean colliderVisible = false;
     protected float opacity = 1;
 
     protected Obj() {
@@ -26,19 +26,19 @@ public abstract class Obj extends Component {
         setSprite(sprite);
     }
 
-    public boolean collidingWith(Obj obj) {
-        Rectangle thisHitBox = (Rectangle) hitBox.clone();
-        thisHitBox.setLocation(getX() + hitBox.x, getY() + hitBox.y);
+    public boolean overlapping(Obj obj) {
+        Rectangle thisCollider = (Rectangle) collider.clone();
+        thisCollider.setLocation(getX() + collider.x, getY() + collider.y);
 
-        Rectangle themHitBox = (Rectangle) obj.getHitBox().clone();
-        themHitBox.setLocation(obj.getX() + themHitBox.x, obj.getY() + themHitBox.y);
+        Rectangle themCollider = (Rectangle) obj.getCollider().clone();
+        themCollider.setLocation(obj.getX() + themCollider.x, obj.getY() + themCollider.y);
 
-        return thisHitBox.intersects(themHitBox);
+        return thisCollider.intersects(themCollider);
     }
 
     public void setSprite(BufferedImage sprite) {
         this.sprite = sprite;
-        hitBox.setSize(sprite.getWidth(), sprite.getHeight());
+        collider.setSize(sprite.getWidth(), sprite.getHeight());
     }
     public void setOpacity(float opacity) {
         if (opacity > 1) {
@@ -49,14 +49,14 @@ public abstract class Obj extends Component {
             this.opacity = opacity;
         }
     }
-    public void setHitBox(int xOffset, int yOffset, int width, int height) {
-        hitBox = new Rectangle(xOffset, yOffset, width, height);
+    public void setCollider(int xOffset, int yOffset, int width, int height) {
+        collider = new Rectangle(xOffset, yOffset, width, height);
     }
-    public void setHitBox(Rectangle hitBox) {
-        this.hitBox = hitBox;
+    public void setCollider(Rectangle collider) {
+        this.collider = collider;
     }
-    public void setHitBoxVisible(boolean hitBoxVisible) {
-        this.hitBoxVisible = hitBoxVisible;
+    public void setColliderVisible(boolean colliderVisible) {
+        this.colliderVisible = colliderVisible;
     }
 
     public BufferedImage getSprite() {
@@ -65,11 +65,11 @@ public abstract class Obj extends Component {
     public float getOpacity() {
         return opacity;
     }
-    public Rectangle getHitBox() {
-        return hitBox;
+    public Rectangle getCollider() {
+        return collider;
     }
-    public boolean isHitBoxVisible() {
-        return hitBoxVisible;
+    public boolean isColliderVisible() {
+        return colliderVisible;
     }
 
     @Override
@@ -85,12 +85,14 @@ public abstract class Obj extends Component {
                 null);
         ((Graphics2D)g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
-        if (hitBoxVisible) {
+        if (colliderVisible) {
             g.setColor(Color.GREEN);
-            g.drawRect((int) ((hitBox.x + getX()) * scale),
-                    (int) ((hitBox.y + getY()) * scale),
-                    (int) (hitBox.width * scale),
-                    (int) (hitBox.height * scale));
+            g.drawRect((int) ((collider.x + getX()) * scale),
+                    (int) ((collider.y + getY()) * scale),
+                    (int) (collider.width * scale),
+                    (int) (collider.height * scale));
         }
     }
+
+    public abstract void update();
 }
