@@ -32,12 +32,18 @@ public abstract class TextObj extends Obj {
     public void setColor(Color color) {
         textField.setForeground(color);
     }
+    public void setFont(Font font) {
+        textField.setFont(font);
+    }
 
     public String getText() {
         return textField.getText();
     }
     public Color getColor() {
         return textField.getForeground();
+    }
+    public Font getFont() {
+        return textField.getFont();
     }
 
     private void updateSize() {
@@ -50,10 +56,10 @@ public abstract class TextObj extends Obj {
 
         double scale = Window.scale;
         g.setColor(getColor());
-        Font scaledFont = textField.getFont();
-        scaledFont = scaledFont.deriveFont((float) (textField.getFont().getSize() * scale));
+        Font scaledFont = getFont();
+        scaledFont = scaledFont.deriveFont((float) (getFont().getSize() * scale));
         g.setFont(scaledFont);
-        int yOffset = getFontMetrics(textField.getFont()).getAscent();
+        int yOffset = getFontMetrics(getFont()).getAscent();
         g.drawString(getText(),
                 (int) (getX() * scale),
                 (int) ((getY() + yOffset) * scale));

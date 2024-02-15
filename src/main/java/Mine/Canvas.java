@@ -57,6 +57,11 @@ public class Canvas extends JPanel {
         }
         layers[layer].add(obj);
     }
+    public void clear() {
+        for (ArrayList<Obj> layer : layers) {
+            layer.clear();
+        }
+    }
 
 
     public void update() {
