@@ -76,14 +76,16 @@ public abstract class Obj extends Component {
     public void paint(Graphics g) {
         double scale = Window.scale;
 
-        ((Graphics2D)g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-        g.drawImage(sprite,
-                (int) (getX() * scale),
-                (int) (getY() * scale),
-                (int) (sprite.getWidth() * scale),
-                (int) (sprite.getHeight() * scale),
-                null);
-        ((Graphics2D)g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+        if (sprite != null) {
+            ((Graphics2D)g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+            g.drawImage(sprite,
+                    (int) (getX() * scale),
+                    (int) (getY() * scale),
+                    (int) (sprite.getWidth() * scale),
+                    (int) (sprite.getHeight() * scale),
+                    null);
+            ((Graphics2D)g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+        }
 
         if (colliderVisible) {
             g.setColor(Color.GREEN);
