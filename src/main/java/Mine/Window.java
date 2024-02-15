@@ -9,7 +9,7 @@ public class Window extends JFrame {
     public static double scale = 1;
     public static Canvas canvas = new Canvas();
     public static InputManager inputManager = new InputManager();
-    private JPanel framePanel = new JPanel();
+    private final JPanel framePanel = new JPanel();
 
     public Window() {
         super();
@@ -69,6 +69,13 @@ public class Window extends JFrame {
         return this.isUndecorated();
     }
 
+    public void setScale(double scale) {
+        if (scale < 0) {
+            Window.scale = 0;
+        } else {
+            Window.scale = scale;
+        }
+    }
     public void updateScale() {
         boolean wantsToFullScreen = false;
         if (isFullScreened()) {
@@ -96,10 +103,6 @@ public class Window extends JFrame {
 
     public void update() {
         this.repaint();
-        for (Component c : canvas.getComponents()) {
-            if (c instanceof Obj) {
-                ((Obj) c).update();
-            }
-        }
+        canvas.update();
     }
 }
