@@ -4,8 +4,8 @@
 !src/main
 !src/main/java
 !src/main/java/Mine
-!src/main/java/Mine/Objects
-!src/main/java/Mine/Objects/*
-!src/main/java/Mine/Objects/*/*
-!src/main/java/Mine/Objects/*/*/*
+!src/main/java/Mine/*
+!src/main/java/Mine/*/*
+!src/main/java/Mine/*/*/*
+!src/main/java/Mine/*/*/*/*
 !resources
