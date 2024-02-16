@@ -38,7 +38,8 @@ public abstract class Obj extends Component {
 
     public void setSprite(BufferedImage sprite) {
         this.sprite = sprite;
-        collider.setSize(sprite.getWidth(), sprite.getHeight());
+        this.setSize(sprite.getWidth(), sprite.getHeight());
+        collider.setSize(getSize());
     }
     public void setOpacity(float opacity) {
         if (opacity > 1) {
@@ -81,8 +82,8 @@ public abstract class Obj extends Component {
             g.drawImage(sprite,
                     (int) (getX() * scale),
                     (int) (getY() * scale),
-                    (int) (sprite.getWidth() * scale),
-                    (int) (sprite.getHeight() * scale),
+                    (int) (getWidth() * scale),
+                    (int) (getHeight() * scale),
                     null);
             ((Graphics2D)g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
         }

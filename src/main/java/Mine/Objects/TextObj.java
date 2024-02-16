@@ -48,6 +48,7 @@ public abstract class TextObj extends Obj {
 
     private void updateSize() {
         collider.setSize(textField.getPreferredSize());
+        this.setSize(textField.getPreferredSize());
     }
 
     @Override

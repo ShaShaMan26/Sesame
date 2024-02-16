@@ -6,29 +6,31 @@ import java.util.ArrayList;
 
 public class InputManager implements KeyListener {
     private final ArrayList<Integer> pressedKeys = new ArrayList<>();
-    private final ArrayList<Integer> invalidKeys = new ArrayList<>();
+    private final ArrayList<Integer> typedKeys = new ArrayList<>();
 
     public boolean isKeyPressed(Integer key) {
         return pressedKeys.contains(key);
     }
 
-    public void invalidateKey(Integer key) {
-        if (!invalidKeys.contains(key)) {
-            invalidKeys.add(key);
-            pressedKeys.remove(key);
-        }
+    public boolean isKeyTyped(Integer key) {
+        return typedKeys.contains(key);
+    }
+    public void clearTypedKeys() {
+        typedKeys.clear();
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
+        Integer key = (int) e.getKeyChar();
 
+        typedKeys.add(key);
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         Integer key = e.getKeyCode();
 
-        if (!pressedKeys.contains(key) && !invalidKeys.contains(key)) {
+        if (!pressedKeys.contains(key)) {
             pressedKeys.add(key);
         }
     }
@@ -37,7 +39,6 @@ public class InputManager implements KeyListener {
     public void keyReleased(KeyEvent e) {
         Integer key = e.getKeyCode();
 
-        invalidKeys.remove(key);
         pressedKeys.remove(key);
     }
 }
