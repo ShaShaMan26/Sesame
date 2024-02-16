@@ -1,7 +1,5 @@
 package Mine;
 
-import Mine.Objects.Obj;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,6 +7,7 @@ public class Window extends JFrame {
     public static double scale = 1;
     public static Canvas canvas = new Canvas();
     public static InputManager inputManager = new InputManager();
+    public static AudioManager audioManager = new AudioManager();
     private final JPanel framePanel = new JPanel();
 
     public Window() {

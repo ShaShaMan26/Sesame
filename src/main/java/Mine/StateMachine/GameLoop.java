@@ -5,7 +5,8 @@ public class GameLoop {
     private State currentState = null;
     private boolean running = false;
 
-    GameLoop(double frameRate) {
+    GameLoop(State startingState, double frameRate) {
+        currentState = startingState;
         GameLoop.frameRate = frameRate;
     }
 
