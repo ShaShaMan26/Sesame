@@ -8,6 +8,7 @@ public class Window extends JFrame {
     public static Canvas canvas = new Canvas();
     public static InputManager inputManager = new InputManager();
     public static AudioManager audioManager = new AudioManager();
+    public static MouseManager mouseManager = new MouseManager();
     private final JPanel framePanel = new JPanel();
 
     public Window() {
@@ -19,6 +20,7 @@ public class Window extends JFrame {
         framePanel.setVisible(false);
 
         this.addKeyListener(inputManager);
+        this.addMouseListener(mouseManager);
         this.add(canvas);
 
         this.getContentPane().setBackground(Color.BLACK);

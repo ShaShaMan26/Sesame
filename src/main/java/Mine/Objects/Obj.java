@@ -26,14 +26,18 @@ public abstract class Obj extends Component {
         setSprite(sprite);
     }
 
+    private Rectangle getOffsetCollider() {
+        Rectangle offsetCollider = (Rectangle) collider.clone();
+        offsetCollider.setLocation(getX() + collider.x, getY() + collider.y);
+        return offsetCollider;
+    }
     public boolean overlapping(Obj obj) {
-        Rectangle thisCollider = (Rectangle) collider.clone();
-        thisCollider.setLocation(getX() + collider.x, getY() + collider.y);
-
-        Rectangle themCollider = (Rectangle) obj.getCollider().clone();
-        themCollider.setLocation(obj.getX() + themCollider.x, obj.getY() + themCollider.y);
-
+        Rectangle thisCollider = getOffsetCollider();
+        Rectangle themCollider = obj.getOffsetCollider();
         return thisCollider.intersects(themCollider);
+    }
+    public boolean contains(Point point) {
+        return getOffsetCollider().contains(point);
     }
 
     public void setSprite(BufferedImage sprite) {

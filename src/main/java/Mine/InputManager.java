@@ -15,6 +15,9 @@ public class InputManager implements KeyListener {
     public boolean isKeyTyped(Integer key) {
         return typedKeys.contains(key);
     }
+    public ArrayList<Integer> getTypedKeys() {
+        return typedKeys;
+    }
     public void clearTypedKeys() {
         typedKeys.clear();
     }
