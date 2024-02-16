@@ -39,6 +39,9 @@ public abstract class Obj extends Component {
     public boolean contains(Point point) {
         return getOffsetCollider().contains(point);
     }
+    public boolean clicked() {
+        return Window.mouseManager.isMousePressed() && Window.mouseManager.isMouseOver(this);
+    }
 
     public void setSprite(BufferedImage sprite) {
         this.sprite = sprite;
