@@ -3,7 +3,7 @@ package Mine;
 import javax.swing.*;
 import java.awt.*;
 
-public class Window extends JFrame {
+public class GameWindow extends JFrame {
     public static double scale = 1;
     public static Canvas canvas = new Canvas();
     public static InputManager inputManager = new InputManager();
@@ -11,7 +11,7 @@ public class Window extends JFrame {
     public static MouseManager mouseManager = new MouseManager();
     private final JPanel framePanel = new JPanel();
 
-    public Window() {
+    public GameWindow() {
         super();
 
         framePanel.setPreferredSize(canvas.getSize());
@@ -29,7 +29,7 @@ public class Window extends JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-    public Window(String title) {
+    public GameWindow(String title) {
         this();
         this.setTitle(title);
     }
@@ -72,9 +72,9 @@ public class Window extends JFrame {
 
     public void setScale(double scale) {
         if (scale < 0) {
-            Window.scale = 0;
+            GameWindow.scale = 0;
         } else {
-            Window.scale = scale;
+            GameWindow.scale = scale;
         }
     }
     public void updateScale() {

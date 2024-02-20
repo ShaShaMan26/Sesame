@@ -1,6 +1,6 @@
 package Mine.StateMachine;
 
-import Mine.Window;
+import Mine.GameWindow;
 
 public class GameLoop {
     public static double frameRate = 30;
@@ -12,7 +12,7 @@ public class GameLoop {
         GameLoop.frameRate = frameRate;
     }
 
-    public void run(Window window) {
+    public void run(GameWindow gameWindow) {
         long lastTime = System.nanoTime();
         double amountOfTicks = frameRate;
         double ns = 1000000000 / amountOfTicks;
@@ -22,7 +22,7 @@ public class GameLoop {
             delta += (now - lastTime) / ns;
             lastTime = now;
             if (delta >= 1) {
-                window.update();
+                gameWindow.update();
                 update();
                 delta--;
             }

@@ -1,6 +1,6 @@
 package Mine.Objects;
 
-import Mine.Window;
+import Mine.GameWindow;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -43,7 +43,7 @@ public abstract class Obj extends Component {
         return getOffsetCollider().contains(point);
     }
     public boolean clicked() {
-        return Window.mouseManager.isMousePressed() && Window.mouseManager.isMouseOver(this);
+        return GameWindow.mouseManager.isMousePressed() && GameWindow.mouseManager.isMouseOver(this);
     }
 
     @Override
@@ -96,7 +96,7 @@ public abstract class Obj extends Component {
 
     @Override
     public void paint(Graphics g) {
-        double scale = Window.scale;
+        double scale = GameWindow.scale;
 
         if (sprite != null) {
             ((Graphics2D)g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));

@@ -1,6 +1,6 @@
 package Mine.Objects;
 
-import Mine.Window;
+import Mine.GameWindow;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 public abstract class GameObj extends Obj {
     protected Point destination = null;
     protected double velocity = 0;
+    protected double realX;
+    protected double realY;
     protected Rectangle hitBox = new Rectangle();
     protected boolean hitBoxVisible = false;
 
@@ -68,20 +70,25 @@ public abstract class GameObj extends Obj {
 
     public void progressMovement() {
         if (destination != null) {
-            int x = getX();
-            int y = getY();
+            if (realX == -1 || realY == -1) {
+                realX = getX();
+                realY = getY();
+            }
 
-            double a = x - destination.x;
-            double o = y - destination.y;
+            double a = realX - destination.x;
+            double o = realY - destination.y;
             double h = Math.sqrt((a*a) + (o*o));
 
-            int xVel = (int) (velocity*(a/h));
-            int yVel = (int) (velocity*(o/h));
+            realX -= velocity*(a/h);
+            realY -= velocity*(o/h);
 
-            setLocation(x-xVel, y-yVel);
+            setLocation((int) realX, (int) realY);
 
-            if (destination == getLocation()) {
+            if (destination.distance(getLocation()) < velocity) {
+                setLocation(destination);
                 destination = null;
+                realX = -1;
+                realY = -1;
             }
         }
     }
@@ -90,7 +97,7 @@ public abstract class GameObj extends Obj {
     public void paint(Graphics g) {
         super.paint(g);
 
-        double scale = Window.scale;
+        double scale = GameWindow.scale;
         if (hitBoxVisible) {
             g.setColor(Color.RED);
             g.drawRect((int) ((hitBox.x + getX()) * scale),

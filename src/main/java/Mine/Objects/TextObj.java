@@ -1,6 +1,6 @@
 package Mine.Objects;
 
-import Mine.Window;
+import Mine.GameWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,7 +55,7 @@ public abstract class TextObj extends Obj {
     public void paint(Graphics g) {
         super.paint(g);
 
-        double scale = Window.scale;
+        double scale = GameWindow.scale;
         g.setColor(getColor());
         Font scaledFont = getFont();
         scaledFont = scaledFont.deriveFont((float) (getFont().getSize() * scale));

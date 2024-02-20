@@ -10,8 +10,8 @@ public class MouseManager implements MouseListener {
     private boolean mousePressed = false;
 
     public Point getMousePos() {
-        Point mousePos = Window.canvas.getMousePosition();
-        double scale = Window.scale;
+        Point mousePos = GameWindow.canvas.getMousePosition();
+        double scale = GameWindow.scale;
         if (mousePos != null) {
             int x = (int) (mousePos.getX() / scale);
             int y = (int) (mousePos.getY() / scale);
