@@ -46,6 +46,17 @@ public abstract class Obj extends Component {
         return Window.mouseManager.isMousePressed() && Window.mouseManager.isMouseOver(this);
     }
 
+    @Override
+    public void setSize(Dimension d) {
+        super.setSize(d);
+        collider.setSize(getSize());
+    }
+    @Override
+    public void setSize(int width, int height) {
+        super.setSize(width, height);
+        collider.setSize(getSize());
+    }
+
     public void setSprite(BufferedImage sprite) {
         this.sprite = sprite;
         this.setSize(sprite.getWidth(), sprite.getHeight());
