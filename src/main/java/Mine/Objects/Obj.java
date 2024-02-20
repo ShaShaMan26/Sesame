@@ -36,6 +36,9 @@ public abstract class Obj extends Component {
         Rectangle themCollider = obj.getOffsetCollider();
         return thisCollider.intersects(themCollider);
     }
+    public static boolean overlapping(Obj obj1, Obj ob2) {
+        return obj1.overlapping(ob2);
+    }
     public boolean contains(Point point) {
         return getOffsetCollider().contains(point);
     }
