@@ -9,16 +9,16 @@ public abstract class GameObj extends Obj {
     protected Rectangle hitBox = new Rectangle();
     protected boolean hitBoxVisible = false;
 
-    public GameObj() {
+    protected GameObj() {
         super();
     }
-    public GameObj(int x, int y) {
+    protected GameObj(int x, int y) {
         super(x, y);
     }
-    public GameObj(BufferedImage sprite) {
+    protected GameObj(BufferedImage sprite) {
         super(sprite);
     }
-    public GameObj(int x, int y, BufferedImage sprite) {
+    protected GameObj(int x, int y, BufferedImage sprite) {
         super(x, y, sprite);
     }
 
