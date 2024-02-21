@@ -70,7 +70,7 @@ public abstract class GameObj extends Obj {
 
     public void progressMovement() {
         if (destination != null) {
-            if (realX == -1 || realY == -1) {
+            if (Double.isNaN(realX) || Double.isNaN(realY)) {
                 realX = getX();
                 realY = getY();
             }
@@ -87,8 +87,8 @@ public abstract class GameObj extends Obj {
             if (destination.distance(getLocation()) < velocity) {
                 setLocation(destination);
                 destination = null;
-                realX = -1;
-                realY = -1;
+                realX = Double.NaN;
+                realY = Double.NaN;
             }
         }
     }
