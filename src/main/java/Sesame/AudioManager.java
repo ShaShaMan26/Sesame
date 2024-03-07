@@ -1,4 +1,4 @@
-package Mine;
+package Sesame;
 
 import javax.sound.sampled.*;
 import java.io.IOException;

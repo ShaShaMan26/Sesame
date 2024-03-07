@@ -1,6 +1,6 @@
-package Mine;
+package Sesame;
 
-import Mine.Objects.Obj;
+import Sesame.Objects.Obj;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

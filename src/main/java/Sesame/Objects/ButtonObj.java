@@ -1,4 +1,4 @@
-package Mine.Objects;
+package Sesame.Objects;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,9 +11,6 @@ public abstract class ButtonObj extends Obj {
     protected BufferedImage selectedSprite = null;
     protected BufferedImage activeSprite = null;
 
-    protected ButtonObj() {
-        super();
-    }
     protected ButtonObj(int x, int y) {
         super(x, y);
     }

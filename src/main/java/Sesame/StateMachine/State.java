@@ -1,4 +1,4 @@
-package Mine.StateMachine;
+package Sesame.StateMachine;
 
 /**
  * <code>State</code> is an abstract class intended to be used in

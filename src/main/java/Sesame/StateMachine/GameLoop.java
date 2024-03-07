@@ -1,6 +1,6 @@
-package Mine.StateMachine;
+package Sesame.StateMachine;
 
-import Mine.GameWindow;
+import Sesame.GameWindow;
 
 /**
  * <code>GameLoop</code> provides a simple game loop/state machine that is easy to use and manage.

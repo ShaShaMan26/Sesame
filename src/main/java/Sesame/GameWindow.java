@@ -1,4 +1,4 @@
-package Mine;
+package Sesame;
 
 import javax.swing.*;
 import java.awt.*;

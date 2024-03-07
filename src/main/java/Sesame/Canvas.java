@@ -1,6 +1,6 @@
-package Mine;
+package Sesame;
 
-import Mine.Objects.Obj;
+import Sesame.Objects.Obj;
 
 import javax.swing.*;
 import java.awt.*;
