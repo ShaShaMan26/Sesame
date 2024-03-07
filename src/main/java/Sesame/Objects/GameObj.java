@@ -13,6 +13,7 @@ public abstract class GameObj extends Obj {
     protected Rectangle hitBox = new Rectangle();
     protected boolean hitBoxVisible = false;
 
+    protected GameObj() {}
     protected GameObj(int x, int y) {
         super(x, y);
     }

@@ -11,6 +11,7 @@ public abstract class ButtonObj extends Obj {
     protected BufferedImage selectedSprite = null;
     protected BufferedImage activeSprite = null;
 
+    protected ButtonObj() {}
     protected ButtonObj(int x, int y) {
         super(x, y);
     }
