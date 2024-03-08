@@ -8,14 +8,17 @@ import java.awt.image.BufferedImage;
 /**
  * <code>Obj</code> is an abstract class intended to be used in making game objects.
  * It extends the <code>Component</code> class and so has access to its locational and sizing abilities,
- * but also has a <code>collider</code> used for collision. The class also has a <code>sprite</code>
- * that is rendered upon call of the <code>paint</code> method and can be drawn at varying opacities.
+ * but also has a <code>collider</code> used for collision.
+ * A <code>fillColor</code> and <code>sprite</code> can be set, which will both be
+ * rendered upon call of the <code>paint</code> method. Rendering can be done at varying
+ * opacities and <code>fillColor</code> will always draw behind <code>sprite</code>.
  */
 public abstract class Obj extends Component {
     protected BufferedImage sprite;
     protected Rectangle collider = new Rectangle();
     protected boolean colliderVisible = false;
     protected float opacity = 1;
+    protected Color fillColor;
 
     /**
      * Default constructor.
@@ -54,15 +57,6 @@ public abstract class Obj extends Component {
         setSprite(sprite);
     }
 
-    /**
-     * Accesses the <code>Obj</code>'s <code>collider</code>, adjusted for offset values.
-     * @return adjusted <code>collider</code>
-     */
-    private Rectangle getOffsetCollider() {
-        Rectangle offsetCollider = (Rectangle) collider.clone();
-        offsetCollider.setLocation(getX() + collider.x, getY() + collider.y);
-        return offsetCollider;
-    }
     /**
      * Checks if a designated <code>Obj</code>'s <code>collider</code> is overlapping
      * this <code>Obj</code>'s <code>collider</code>.
@@ -140,24 +134,11 @@ public abstract class Obj extends Component {
         this.setSize(sprite.getWidth(), sprite.getHeight());
     }
     /**
-     * Sets the render opacity of <code>Obj</code>.
-     * <p>
-     *     Opacity adjustment works as a multiplier, so a value of <code>.5</code>
-     *     will render the <code>sprite</code> at 50% opacity.
-     * </p>
-     * @param opacity <code>float</code> multiplier value.
-     *               <p>
-     *                  Clamps to values within the range of <code>0</code> to <code>1</code>
-     *               </p>
+     * Accesses the <code>Obj</code>'s current sprite.
+     * @return <code>Obj</code>'s current sprite as a <code>BufferedImage</code>
      */
-    public void setOpacity(float opacity) {
-        if (opacity > 1) {
-            this.opacity = 1;
-        } else if (opacity < 0) {
-            this.opacity = 0;
-        } else {
-            this.opacity = opacity;
-        }
+    public BufferedImage getSprite() {
+        return sprite;
     }
 
     /**
@@ -189,27 +170,21 @@ public abstract class Obj extends Component {
     public void setColliderVisible(boolean colliderVisible) {
         this.colliderVisible = colliderVisible;
     }
-
-    /**
-     * Accesses the <code>Obj</code>'s current sprite.
-     * @return <code>Obj</code>'s current sprite as a <code>BufferedImage</code>
-     */
-    public BufferedImage getSprite() {
-        return sprite;
-    }
-    /**
-     * Accesses the current <code>float</code> value of <code>Obj</code>'s render opacity.
-     * @return render opacity as a <code>float</code>
-     */
-    public float getOpacity() {
-        return opacity;
-    }
     /**
      * Accesses <code>collider</code>.
      * @return <code>Rectangle</code> representing current <code>collider</code>
      */
     public Rectangle getCollider() {
         return collider;
+    }
+    /**
+     * Accesses the <code>Obj</code>'s <code>collider</code>, adjusted for offset values.
+     * @return adjusted <code>collider</code>
+     */
+    private Rectangle getOffsetCollider() {
+        Rectangle offsetCollider = (Rectangle) collider.clone();
+        offsetCollider.setLocation(getX() + collider.x, getY() + collider.y);
+        return offsetCollider;
     }
     /**
      * Indicates the current visibility of <code>collider</code>.
@@ -219,9 +194,63 @@ public abstract class Obj extends Component {
         return colliderVisible;
     }
 
+    /**
+     * Accesses the current <code>float</code> value of <code>Obj</code>'s render opacity.
+     * @return render opacity as a <code>float</code>
+     */
+    public float getOpacity() {
+        return opacity;
+    }
+    /**
+     * Sets the render opacity of <code>Obj</code>.
+     * <p>
+     *     Opacity adjustment works as a multiplier, so a value of <code>.5</code>
+     *     will render the <code>sprite</code> at 50% opacity.
+     * </p>
+     * @param opacity <code>float</code> multiplier value.
+     *               <p>
+     *                  Clamps to values within the range of <code>0</code> to <code>1</code>
+     *               </p>
+     */
+    public void setOpacity(float opacity) {
+        if (opacity > 1) {
+            this.opacity = 1;
+        } else if (opacity < 0) {
+            this.opacity = 0;
+        } else {
+            this.opacity = opacity;
+        }
+    }
+
+    /**
+     * Sets <code>Obj</code>'s <code>fillColor</code>.
+     * <p>
+     *     <code>null</code> for none.
+     * </p>
+     * @param fillColor target <code>Color</code>
+     */
+    public void setFillColor(Color fillColor) {
+        this.fillColor = fillColor;
+    }
+
+    /**
+     * Accesses the <code>Obj</code>'s current <code>fillColor</code>.
+     * @return <code>fillColor</code> as a <code>Color</code>
+     */
+    public Color getFillColor() {
+        return fillColor;
+    }
+
     @Override
     public void paint(Graphics g) {
         double scale = GameWindow.scale;
+
+        if (fillColor != null) {
+            ((Graphics2D)g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+            g.setColor(fillColor);
+            g.fillRect(getX(), getY(), getWidth(), getHeight());
+            ((Graphics2D)g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+        }
 
         if (sprite != null) {
             ((Graphics2D)g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
