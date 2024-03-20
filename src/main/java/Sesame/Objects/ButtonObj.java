@@ -49,8 +49,14 @@ public abstract class ButtonObj extends Obj {
         return selectionState;
     }
 
+    /**
+     * Abstract method intended to house <code>ButtonObj</code>'s function when activated.
+     */
     public abstract void activeEvent();
 
+    /**
+     * Calls <code>activeEvent</code> method if <code>selectionState</code> is <code>ACTIVE</code>.
+     */
     @Override
     public void update() {
         if (selectionState.equals(SelectionState.ACTIVE)) {
